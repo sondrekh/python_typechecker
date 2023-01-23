@@ -1,1 +1,1 @@
-from . import typecheck
+from .typechecker import typecheck

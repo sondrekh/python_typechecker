@@ -18,3 +18,6 @@ class Typecheck_for_single_kwarg(unittest.TestCase):
         value = "hello world"
         self.foo.bar(value)
         self.assertEqual(value, self.foo._bar)
+
+    def test_fail_if_error_in_kw_spelling(self):
+        self.assertRaises(KeyError, self.foo.bar, not_a_kw="Fail!")

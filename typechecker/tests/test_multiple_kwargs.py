@@ -1,6 +1,7 @@
 import unittest
 from typechecker import typecheck
 
+
 class Bar:
     def __init__(self) -> None:
         self.foo = 5
@@ -17,7 +18,7 @@ class Foo:
         self.beta = beta
         self.gamma = gamma
 
-class Typecheck_for_single_kwarg(unittest.TestCase):
+class Typecheck_for_multiple_kwargs(unittest.TestCase):
 
     def setUp(self) -> None:
         self.foo = Foo()
@@ -26,7 +27,9 @@ class Typecheck_for_single_kwarg(unittest.TestCase):
         alpha = "alpha"
         beta = 1
         gamma = Bar()
+
         self.foo.bar(alpha=alpha, beta=beta, gamma=gamma)
+
         self.assertEqual(alpha, self.foo.alpha)
         self.assertEqual(beta, self.foo.beta)
         self.assertEqual(gamma, self.foo.gamma)
