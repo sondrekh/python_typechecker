@@ -37,7 +37,28 @@ class Typecheck:
 
 def check_type(type_input, type_expected): 
     """Compare provided types. Raise TypeError exception if mismatch."""
-    if type_input != type_expected:
+    equalTypes = False
+    
+    if type_input == type_expected: # Check if types matches
+        equalTypes = True
+    else: # If types doesn't match, check if a parent class matches. 
+        equalTypes = check_parent_classes(type_expected, type_input)
+
+    if not equalTypes: 
         raise TypeError("Check function/method input-type(s)")
 
+def check_parent_classes(type_expected, type_input):
+    """Check if input class has a parent class matching the expected type."""
+    equalTypes = False
+    _type = type_input
+    while _type != object: # Check if "object", as object is at top level for all types.
+        _type = get_parent_class(_type)
+        if type_expected == _type:
+            equalTypes = True # If matching comparing object, no need for further checks
+            break
+    return equalTypes
 
+def get_parent_class(object) -> type: 
+    """type.__bases__ returns "(<class 'str',)"."""
+    bases = object.__bases__
+    return bases[0]
