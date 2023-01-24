@@ -1,4 +1,5 @@
 def typecheck(func):
+    """Decorator used to enforce type-hints."""
     def decorated_function(*args, **kwargs):
         annotations = func.__annotations__
 
@@ -21,12 +22,14 @@ def check_kwargs(kwargs, annotations):
 
 
 def handle_args(args, annotations):
+    """Typecheck each provided argument without keywords."""
     i = 1 # First argument in "args" is "self". First input arg is at index 1.
     for annotation in annotations:
         if annotation == "return": # Return-value-annotation, not input. 
             break
 
         check_type(type(args[i]), annotations[annotation])
+        i += 1 
 
 
 def check_type(type_input, type_expected): 
