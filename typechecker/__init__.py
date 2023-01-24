@@ -1,1 +1,1 @@
-from .typechecker import typecheck
+from .decorator import typecheck

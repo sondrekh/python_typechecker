@@ -2,7 +2,7 @@
     "python.testing.unittestArgs": [
         "-v",
         "-s",
-        "./typechecker",
+        "./tests",
         "-p",
         "test_*.py"
     ],
