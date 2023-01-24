@@ -1,4 +1,4 @@
-from typechecker.Typecheck import Typecheck
+from .Typecheck import Typecheck
 
 
 def typecheck(func: callable) -> None:
