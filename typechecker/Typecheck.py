@@ -1,12 +1,3 @@
-def typecheck(func: callable) -> None:
-    """Decorator used to enforce type-hints."""
-    def decorated_function(*args, **kwargs) -> callable:
-        Typecheck(func, *args, **kwargs)       
-        result = func(*args, **kwargs)
-        return result
-
-    return decorated_function
-
 class Typecheck:
     """Takes input types for args and kwargs and checks against function type hints."""
     def __init__(self, func: callable, *args, **kwargs) -> None:
@@ -47,13 +38,13 @@ def check_type(type_input, type_expected):
     if not equalTypes: 
         raise TypeError("Check function/method input-type(s)")
 
-def check_parent_classes(type_expected, type_input):
+def check_parent_classes(expected: type, input: type) -> bool:
     """Check if input class has a parent class matching the expected type."""
     equalTypes = False
-    _type = type_input
+    _type = input
     while _type != object: # Check if "object", as object is at top level for all types.
         _type = get_parent_class(_type)
-        if type_expected == _type:
+        if expected == _type:
             equalTypes = True # If matching comparing object, no need for further checks
             break
     return equalTypes
