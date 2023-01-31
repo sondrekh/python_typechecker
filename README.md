@@ -1,6 +1,6 @@
 # Typechecker 
 
-Functionality: 
+Functionality:
 
 - Compare typehints against args
 - Compare typehints against key-word args
