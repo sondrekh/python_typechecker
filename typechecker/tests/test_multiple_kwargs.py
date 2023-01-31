@@ -6,10 +6,12 @@ class Bar:
     def __init__(self) -> None:
         self.foo = 5
 
+
 class Alpha:
 
     def __init__(self) -> None:
         print("Hello world")
+
 
 class Foo:
     @typecheck
@@ -18,11 +20,12 @@ class Foo:
         self.beta = beta
         self.gamma = gamma
 
+
 class Typecheck_for_multiple_kwargs(unittest.TestCase):
 
     def setUp(self) -> None:
         self.foo = Foo()
-    
+
     def test_match_on_all_annotations(self):
         alpha = "alpha"
         beta = 1
@@ -38,6 +41,6 @@ class Typecheck_for_multiple_kwargs(unittest.TestCase):
         alpha = "alpha"
         beta = 1
         gamma = Alpha()
-        
-        self.assertRaises(TypeError, self.foo.bar, alpha=alpha, beta=beta, gamma=alpha)
-        
+
+        self.assertRaises(TypeError, self.foo.bar,
+                          alpha=alpha, beta=beta, gamma=alpha)

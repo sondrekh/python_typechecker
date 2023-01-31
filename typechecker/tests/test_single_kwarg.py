@@ -1,10 +1,12 @@
 import unittest
 from typechecker import typecheck
 
+
 class Foo:
     @typecheck
     def bar(self, someString: str) -> None:
         self._bar = someString
+
 
 class Typecheck_for_single_kwarg(unittest.TestCase):
 

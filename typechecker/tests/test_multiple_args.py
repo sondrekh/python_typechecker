@@ -1,11 +1,14 @@
 import unittest
 from typechecker import typecheck
 
+
 class Bar:
     pass
 
+
 class NotBar:
     pass
+
 
 class Foo:
     @typecheck
@@ -14,11 +17,11 @@ class Foo:
         self.someInt = someInt
         self.someBar = someBar
 
+
 class Typecheck_for_multiple_args(unittest.TestCase):
 
     def setUp(self) -> None:
         self.foo = Foo()
-
 
     def test_success_if_all_arg_types_are_matching(self):
         someString = "Success"
@@ -29,11 +32,12 @@ class Typecheck_for_multiple_args(unittest.TestCase):
 
         self.assertEqual(self.foo.someString, someString)
         self.assertEqual(self.foo.someInt, someInt)
-        self.assertEqual(self.foo.someBar, someBar) 
+        self.assertEqual(self.foo.someBar, someBar)
 
     def test_fail_if_single_mismatch(self):
         someString = "Success"
         someInt = 1
         someBar = NotBar()
 
-        self.assertRaises(TypeError, self.foo.bar, someString, someInt, someBar)
+        self.assertRaises(TypeError, self.foo.bar,
+                          someString, someInt, someBar)
