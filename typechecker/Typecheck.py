@@ -1,19 +1,22 @@
 class Typecheck:
     """Takes input types for args and kwargs and checks against function type hints."""
 
-    def __init__(self, func: callable, *args, **kwargs) -> None:
+    def __init__(self, _type, func: callable, *args, **kwargs) -> None:
         self.args = args
         self.kwargs = kwargs
         self.annotations = func.__annotations__
 
         self.check_kwargs()
 
-        if len(args) != 1:  # If len == 1, the only argument is "self"
-            self.check_args()
+        minimum_length = 1
+        if _type == "FUNCTION":
+            minimum_length = 0
 
-    def check_args(self) -> None:
+        if len(args) != minimum_length:  # If len == 1, the only argument is "self" for class methods
+            self.check_args(minimum_length)
+
+    def check_args(self, i: int) -> None:
         """Typecheck each provided argument without keywords."""
-        i = 1  # First argument in "args" is "self". First input arg is at index 1.
         for annotation in self.annotations:
             if annotation == "return":  # Return-value-annotation, not input.
                 break
