@@ -2,25 +2,32 @@ import unittest
 
 from typechecker import typecheck
 
+
 class Bar:
     ...
+
 
 class BarChild(Bar):
     ...
 
+
 class SubBarChild(BarChild):
     ...
+
 
 class SubSubBarChild(SubBarChild):
     ...
 
+
 class NotBar:
     ...
+
 
 class Foo:
     @typecheck
     def bar(self, someBar: Bar):
         self._bar = someBar
+
 
 class TestSubClassHandling(unittest.TestCase):
 
@@ -37,7 +44,6 @@ class TestSubClassHandling(unittest.TestCase):
     def test_fail_class_of_hinted_class_type_mismatch(self):
         self.assertRaises(TypeError, self.foo.bar, NotBar())
 
-    
     def test_accept_subclass_of_bar(self):
         bar = BarChild()
 
@@ -57,34 +63,36 @@ class SubClassExploratory(unittest.TestCase):
         self.assertTrue(isChild)
 
     def test_find_grandparent_class(self):
-        grandparent = Bar() 
+        grandparent = Bar()
         subchild = SubBarChild()
 
         isChild = is_child_and_parent_classes(grandparent, subchild)
-        
+
         self.assertTrue(isChild)
 
     def test_find_greatgrandparent_class(self):
-        grandparent = Bar() 
+        grandparent = Bar()
         subchild = SubSubBarChild()
 
         isChild = is_child_and_parent_classes(grandparent, subchild)
-        
+
         self.assertTrue(isChild)
+
 
 def is_child_and_parent_classes(class_object, other):
     areEqual = False
     _type = type(other)
 
-    while _type != object: # Check if "object", as object is at top level for all types.
+    while _type != object:  # Check if "object", as object is at top level for all types.
         _type = get_parent_class(_type)
         if type(class_object) == _type:
-            areEqual = True # If matching comparing object, no need for further checks
+            areEqual = True  # If matching comparing object, no need for further checks
             break
 
     return areEqual
 
-def get_parent_class(object) -> type: 
+
+def get_parent_class(object) -> type:
     """type.__bases__ returns "(<class 'str',)"."""
     bases = object.__bases__
     return bases[0]

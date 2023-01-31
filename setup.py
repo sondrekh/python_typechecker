@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
    name='pytypechecker',
-   version='1.0.0',
+   version='1.0.1',
    author='Sondre Kværne Hansen',
    author_email='sondrekhansen+pypi@gmail.com',
    packages=['typechecker'],
